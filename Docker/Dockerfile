@@ -15,32 +15,31 @@ ENV DEBIAN_FRONTEND=noninteractive \
     REMOTE_HOST=none \
     GALAXY_URL=none
 
-# install node.js
-# RUN add-apt-repository ppa:chris-lea/node.js
-# RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise universe" >> /etc/apt/sources.list
+# install dependencies
 RUN apt-get update && \
     apt-get install -y apt-utils && \
     apt-get install -y python-software-properties git python g++ make libssl-dev pkg-config build-essential redis-server && \
     apt-get install -y curl nodejs npm nginx net-tools procps
 
 # install ethercalc
-RUN (cd /opt && \
-     git clone https://github.com/audreyt/ethercalc.git ethercalc && \
-     cd ethercalc && \
-     npm install)
+RUN ln -s /usr/bin/nodejs /usr/bin/node && \
+    npm install -g ethercalc forever
 
-ADD ./start.html /opt/ethercalc/start.html
+# make some changes to ethercalc to import and export data to galaxy history
+# TODO: replace with patch
+ADD ./start.html /usr/local/lib/node_modules/ethercalc/start.html
 
 # GIE setup
-ADD ./startup.sh /startup.sh
-ADD ./monitor_traffic.sh /monitor_traffic.sh
 ADD ./proxy.conf /proxy.conf
+ADD ./monitor_traffic.sh /monitor_traffic.sh
+ADD ./startup.sh /startup.sh
+ADD ./ethercalc_import.sh /ethercalc_import.sh
 
 RUN mkdir -p /import /run/nginx
 
 VOLUME ["/import"]
 WORKDIR /import/
 
-EXPOSE 80 6379 6967
+EXPOSE 80
 
 CMD /startup.sh

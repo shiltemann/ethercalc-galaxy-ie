@@ -4,11 +4,13 @@
 sed -i "s|PROXY_PREFIX|${PROXY_PREFIX}|" /proxy.conf;
 cp /proxy.conf /etc/nginx/nginx.conf;
 
-# start ethercalc
-nginx
+# start ethercalc in daemon mode
+forever start `which ethercalc`
 
-# Launch traffic monitor which will automatically kill the container if traffic
-# stops, and start zeppelin
+# load dataset into ethercalc
+/ethercalc_import.sh &
+
+# start script to detect when user is no longer connected
 /monitor_traffic.sh &
-nodejs /opt/ethercalc/app.js
-#ethercalc
+
+nginx -g 'daemon off;'

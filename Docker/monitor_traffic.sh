@@ -7,29 +7,12 @@
 # For some reason there are a few connections open that do not relate the
 # client that needs to be connected over the port :80 If we do not have a
 # connection open from port 80, kill the server and herewith the docker container.
-sleep 2
-
-cd /import
-#curl -X PUT -H 'Content-Type: text/csv' \
-#     --data-binary @file.dat http://localhost:8000/ethercalc/_/file
-
-#create new spreadsheet
-curl --include \
-     --request POST \
-     --header "Content-Type: application/json" \
-     --data-binary "{ \"room\": \"galaxy\", \"snapshot\": \"...\"}"  \
-'http://localhost:8000/_'
-
-# upload dataset
-curl --include --request PUT \
---header "Content-Type: text/csv" \
---data-binary @file.dat http://localhost:8000/_/galaxy
 
 while true; do
-    sleep 180
+    sleep 60
 
     if [ `netstat -t | grep -v CLOSE_WAIT | grep ':80' | wc -l` -lt 1 ]
     then
-        pkill nodejs
+        pkill nginx
     fi
 done
