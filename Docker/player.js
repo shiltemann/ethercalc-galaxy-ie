@@ -507,7 +507,9 @@
                 }), $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.YES : void 8, {
                   text: 'CSV',
                   click: function(){
-                    return window.open("." + (window.parent.location.pathname.match('/.*/view$') || window.parent.location.pathname.match('/.*/edit$') ? '.' : '') + "/" + SocialCalc._room + ".csv");
+                    // GIE changes
+                    //return window.open("." + (window.parent.location.pathname.match('/.*/view$') || window.parent.location.pathname.match('/.*/edit$') ? '.' : '') + "/" + SocialCalc._room + ".csv");
+                    return window.location.assign("." + "/" + SocialCalc._room + ".csv");
                   }
                 }), $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.YES : void 8, {
                   text: 'HTML',

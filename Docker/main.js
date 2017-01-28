@@ -225,7 +225,10 @@
     ExportCSV = api(function(){
       return [
         Csv, function(sc, cb){
-          return sc.exportCSV(cb);
+          // GIE changes
+          var execSync = require('child_process').execSync;
+          code = execSync('touch /import/bla2');
+          //return sc.exportCSV(cb);
         }
       ];
     });

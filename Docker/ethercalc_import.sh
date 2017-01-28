@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# wait til ethercalc has started
 sleep 2 # TODO: replace with check if actually running
 
 cd /import
