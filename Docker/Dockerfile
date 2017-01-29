@@ -19,11 +19,13 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN apt-get update && \
     apt-get install -y apt-utils && \
     apt-get install -y python-software-properties git python g++ make libssl-dev pkg-config build-essential redis-server && \
-    apt-get install -y curl nodejs npm nginx net-tools procps
+    apt-get install -y curl nodejs npm nginx net-tools procps python-pip
 
 # install ethercalc
 RUN ln -s /usr/bin/nodejs /usr/bin/node && \
     npm install -g ethercalc forever child_process
+
+RUN pip install bioblend
 
 # make some changes to ethercalc to import and export data to galaxy history
 # TODO: replace with patch
@@ -36,6 +38,8 @@ ADD ./proxy.conf /proxy.conf
 ADD ./monitor_traffic.sh /monitor_traffic.sh
 ADD ./startup.sh /startup.sh
 ADD ./ethercalc_import.sh /ethercalc_import.sh
+ADD ./ethercalc_export.sh /ethercalc_export.sh
+ADD ./galaxy.py /usr/bin/galaxy.py
 
 RUN mkdir -p /import /run/nginx
 
