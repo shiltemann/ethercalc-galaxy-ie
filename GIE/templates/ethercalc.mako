@@ -30,6 +30,12 @@ ${ ie.load_default_js() }
 ${ ie.default_javascript_variables() }
 var url = '${ url }';
 ${ ie.plugin_require_config() }
+
+// Keep container running
+requirejs(['interactive_environments', 'plugin/ethercalc'], function(){
+    keep_alive(url);
+});
+
 requirejs(['interactive_environments', 'plugin/ethercalc'], function(){
     load_notebook(url);
 });
