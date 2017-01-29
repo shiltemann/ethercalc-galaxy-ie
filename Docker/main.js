@@ -190,21 +190,32 @@
             if (snapshot) {
               ref$ = cb.call(this$.params, snapshot), type = ref$[0], content = ref$[1];
 
-              // GIE changes
-              // on save, disable download dialog and trigger history upload script
-              var exec = require('child_process').exec;
-              var cmd = 'bash /ethercalc_export.sh';
-              exec(cmd);
-              this$.response.redirect(BASEPATH + "/" + room);
-              //
-
               if (type === Csv) {
                 this$.response.set('Content-Disposition', "attachment; filename=\"" + this$.params.room + ".csv\"");
               }
               if (content instanceof Function) {
                 return content(SC[room], function(rv){
                   this$.response.type(type);
-                  return this$.response.send(200, rv);
+
+                  //GIE changes
+                  // save file to server instead of client side
+                  var fs2 = require('fs');
+                  fs2.writeFile("/ethercalc_saved", rv, function(err) {
+                      if(err) {
+                          return console.log(err);
+                      }
+                      console.log("The file was saved!");
+                  });
+
+                  // trigger galaxy upload
+                  var exec = require('child_process').exec;
+                  var cmd = 'python csv-to-tsv.py ethercalc_saved ethercalc_export && put -p ethercalc_export -t tabular';
+                  exec(cmd);
+
+                  // redirect browser back to worksheet
+                  this$.response.redirect(BASEPATH + "/" + room);
+                  //return this$.response.send(200, rv);
+                  //GIE changes
                 });
               } else {
                 this$.response.type(type);

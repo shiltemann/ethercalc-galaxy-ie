@@ -505,7 +505,7 @@
                     }
                   }
                 }), $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.YES : void 8, {
-                  text: 'CSV',
+                  text: 'TSV',
                   click: function(){
                     // GIE changes
                     //return window.open("." + (window.parent.location.pathname.match('/.*/view$') || window.parent.location.pathname.match('/.*/edit$') ? '.' : '') + "/" + SocialCalc._room + ".csv");

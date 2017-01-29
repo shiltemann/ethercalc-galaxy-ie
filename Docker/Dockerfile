@@ -25,7 +25,7 @@ RUN apt-get update && \
 RUN ln -s /usr/bin/nodejs /usr/bin/node && \
     npm install -g ethercalc forever child_process
 
-RUN pip install bioblend
+RUN pip install bioblend galaxy-ie-helpers
 
 # make some changes to ethercalc to import and export data to galaxy history
 # TODO: replace with patch
@@ -38,8 +38,9 @@ ADD ./proxy.conf /proxy.conf
 ADD ./monitor_traffic.sh /monitor_traffic.sh
 ADD ./startup.sh /startup.sh
 ADD ./ethercalc_import.sh /ethercalc_import.sh
-ADD ./ethercalc_export.sh /ethercalc_export.sh
 ADD ./galaxy.py /usr/bin/galaxy.py
+ADD ./put /usr/local/bin/put
+ADD ./csv-to-tsv.py /csv-to-tsv.py
 
 RUN mkdir -p /import /run/nginx
 
