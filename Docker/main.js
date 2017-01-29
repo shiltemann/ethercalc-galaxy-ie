@@ -189,6 +189,15 @@
             snapshot = arg$.snapshot;
             if (snapshot) {
               ref$ = cb.call(this$.params, snapshot), type = ref$[0], content = ref$[1];
+
+              // GIE changes
+              // on save, disable download dialog and trigger history upload script
+              var exec = require('child_process').exec;
+              var cmd = 'bash /ethercalc_export.sh';
+              exec(cmd);
+              this$.response.redirect(BASEPATH + "/" + room);
+              //
+
               if (type === Csv) {
                 this$.response.set('Content-Disposition', "attachment; filename=\"" + this$.params.room + ".csv\"");
               }
@@ -225,10 +234,7 @@
     ExportCSV = api(function(){
       return [
         Csv, function(sc, cb){
-          // GIE changes
-          var execSync = require('child_process').execSync;
-          code = execSync('touch /import/bla2');
-          //return sc.exportCSV(cb);
+          return sc.exportCSV(cb);
         }
       ];
     });
