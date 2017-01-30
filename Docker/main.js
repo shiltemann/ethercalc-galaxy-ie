@@ -206,10 +206,26 @@
                       }
                       console.log("The file was saved!");
                   });
+                  
+                  // Save audit file
+                  var contents = fs.readFileSync('/dump.json', 'utf8');
+                  var contentsp = JSON.parse(contents);
+                  var fs2 = require('fs');
+                  fs2.writeFile("/ethercalc_audit_saved", contentsp['audit-galaxy'].join("\n"), function(err) {
+                    if(err) {
+                        return console.log(err);
+                    }
+                    console.log("The file was saved!");
+                  });
 
                   // trigger galaxy upload
                   var exec = require('child_process').exec;
                   var cmd = 'python csv-to-tsv.py ethercalc_saved ethercalc_export && put -p ethercalc_export -t tabular';
+                  exec(cmd);
+
+                  // trigger galaxy upload
+                  var exec = require('child_process').exec;
+                  var cmd = 'put -p ethercalc_audit_export -t txt';
                   exec(cmd);
 
                   // redirect browser back to worksheet
