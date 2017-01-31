@@ -209,7 +209,7 @@
 
                   // trigger galaxy upload
                   var exec = require('child_process').exec;
-                  var cmd = 'python csv-to-tsv.py ethercalc_saved ethercalc_export && put -p ethercalc_export -t tabular';
+                  var cmd = 'python /galaxy_export.py';
                   exec(cmd);
 
                   // redirect browser back to worksheet

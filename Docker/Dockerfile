@@ -41,6 +41,7 @@ ADD ./ethercalc_import.sh /ethercalc_import.sh
 ADD ./galaxy.py /usr/bin/galaxy.py
 ADD ./put /usr/local/bin/put
 ADD ./csv-to-tsv.py /csv-to-tsv.py
+ADD ./galaxy_export.py /galaxy_export.py
 
 RUN mkdir -p /import /run/nginx
 
