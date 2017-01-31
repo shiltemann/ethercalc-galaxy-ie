@@ -486,38 +486,21 @@
               vex.defaultOptions.className = 'vex-theme-flat-attack';
             }
             return typeof vex != 'undefined' && vex !== null ? vex.dialog.open({
-              message: "Please choose an export format." + (isMultiple ? "<br><small>(EXCEL supports multiple sheets.)</small>" : ""),
+              message: "Click the button below to save your worksheet. An audit trail will also be placed in your history <br><br><small> NOTE: You may have to reload your history for your files to appear.</small>",
               callback: function(){
                 return SocialCalc.Keyboard.passThru = false;
               },
               buttons: [
+                $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.NO : void 8, {
+                    text: 'Cancel'
+                }),
                 $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.YES : void 8, {
-                  text: 'Excel',
-                  click: function(){
-                    if (isMultiple) {
-                      if (window.parent.location.href.match(/(^.*\/=[^?/]+)/)) {
-                        return window.open(RegExp.$1 + ".xlsx");
-                      } else {
-                        return window.open("." + (window.parent.location.pathname.match('/.*/view$') || window.parent.location.pathname.match('/.*/edit$') ? '.' : '') + "/=" + SocialCalc._room.replace(/\.[1-9]\d*$/, '') + ".xlsx");
-                      }
-                    } else {
-                      return window.open("." + (window.parent.location.pathname.match('/.*/view$') || window.parent.location.pathname.match('/.*/edit$') ? '.' : '') + "/" + SocialCalc._room + ".xlsx");
-                    }
-                  }
-                }), $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.YES : void 8, {
-                  text: 'TSV',
+                  text: 'Send to Galaxy',
                   click: function(){
                     // GIE changes
                     //return window.open("." + (window.parent.location.pathname.match('/.*/view$') || window.parent.location.pathname.match('/.*/edit$') ? '.' : '') + "/" + SocialCalc._room + ".csv");
                     return window.location.assign("." + "/" + SocialCalc._room + ".csv");
                   }
-                }), $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.YES : void 8, {
-                  text: 'HTML',
-                  click: function(){
-                    return window.open("." + (window.parent.location.pathname.match('/.*/view$') || window.parent.location.pathname.match('/.*/edit$') ? '.' : '') + "/" + SocialCalc._room + ".html");
-                  }
-                }), $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.NO : void 8, {
-                  text: 'Cancel'
                 })
               ]
             }) : void 8;
