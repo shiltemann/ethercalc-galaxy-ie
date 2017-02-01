@@ -5,6 +5,9 @@ sleep 2 # TODO: replace with check if actually running
 
 cd /import
 
+# get dataset from galaxy history
+get -i ${DATASET_HID}
+
 # create new spreadsheet named galaxy
 curl --include \
      --request POST \
@@ -15,4 +18,4 @@ curl --include \
 # load dataset into worksheet
 curl --include --request PUT \
 --header "Content-Type: text/csv" \
---data-binary @file.dat http://localhost:8000/_/galaxy
+--data-binary @${DATASET_HID} http://localhost:8000/_/galaxy

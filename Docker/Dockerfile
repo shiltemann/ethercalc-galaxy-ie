@@ -45,9 +45,6 @@ ADD ./galaxy_export.py /galaxy_export.py
 
 RUN mkdir -p /import /run/nginx
 
-VOLUME ["/import"]
-WORKDIR /import/
-
 EXPOSE 80
 
 CMD /startup.sh
