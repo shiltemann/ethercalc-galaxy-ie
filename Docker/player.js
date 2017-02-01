@@ -486,7 +486,7 @@
               vex.defaultOptions.className = 'vex-theme-flat-attack';
             }
             return typeof vex != 'undefined' && vex !== null ? vex.dialog.open({
-              message: "Click the button below to save your worksheet. An audit trail will also be placed in your history <br><br><small> NOTE: You may have to reload your history for your files to appear.</small>",
+              message: "Click the button below to save your worksheet. An audit trail will also be placed in your history <br><br><small> NOTE: You may have to refresh your history for your files to appear.</small>",
               callback: function(){
                 return SocialCalc.Keyboard.passThru = false;
               },

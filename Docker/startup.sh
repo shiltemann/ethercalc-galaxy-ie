@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# configure and start nginx
+# configure nginx
 sed -i "s|PROXY_PREFIX|${PROXY_PREFIX}|" /proxy.conf;
 cp /proxy.conf /etc/nginx/nginx.conf;
 
@@ -13,4 +13,5 @@ forever start `which ethercalc` --cors
 # start script to detect when user is no longer connected
 /monitor_traffic.sh &
 
+# start nginx in foreground mode
 nginx -g 'daemon off;'

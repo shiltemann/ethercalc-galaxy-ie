@@ -22,10 +22,10 @@ def get_audit_trail():
 if __name__ == "__main__":
     # send worksheet to galaxy history
     csv_to_tsv('ethercalc_saved', 'ethercalc_export')
-    put('ethercalc_export', file_type='tabular')
 
     # get audit trail of worksheet, output one command per line
-    # TODO: build galaxy tool that takes this log and applies changes new file
     get_audit_trail()
 
+    # send outputs to Galaxy
     put('ethercalc_audit', file_type='txt')
+    put('ethercalc_export', file_type='tabular')
