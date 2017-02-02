@@ -21,6 +21,13 @@ curl --include \
      --data-binary "{ \"room\": \"galaxy\", \"snapshot\": \"...\"}"  \
 'http://localhost:8000/_'
 
+# put loading message into worksheet in case of large files
+echo -e "Loading your,dataset\nThis may take, some time for, large files.." > loading.txt
+curl --include --request PUT --header "Content-Type: text/csv" --data-binary @loading.txt http://localhost:8000/_/galaxy
+
+# remove dump file so this doesnt appear in audit trail
+rm /dump.json
+
 # load dataset into worksheet
 curl --include --request PUT \
 --header "Content-Type: text/csv" \
