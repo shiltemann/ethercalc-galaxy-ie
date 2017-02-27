@@ -486,21 +486,26 @@
               vex.defaultOptions.className = 'vex-theme-flat-attack';
             }
             return typeof vex != 'undefined' && vex !== null ? vex.dialog.open({
-              message: "Click the button below to save your worksheet. An audit trail will also be placed in your history <br><br><small> NOTE: You may have to refresh your history for your files to appear.</small>",
+              message: "Click a button below to save your worksheet in your desired format. An audit trail will also be placed in your history <br><br><small> NOTE: You may have to refresh your history for your files to appear.</small>",
               callback: function(){
                 return SocialCalc.Keyboard.passThru = false;
               },
               buttons: [
-                $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.NO : void 8, {
-                    text: 'Cancel'
+                // GIE changes
+                $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.YES : void 8, {
+                    text: 'TSV',
+                    click: function(){
+                        return window.location.assign("." + "/" + SocialCalc._room + ".tsv");
+                    }
                 }),
                 $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.YES : void 8, {
-                  text: 'Send to Galaxy',
-                  click: function(){
-                    // GIE changes
-                    //return window.open("." + (window.parent.location.pathname.match('/.*/view$') || window.parent.location.pathname.match('/.*/edit$') ? '.' : '') + "/" + SocialCalc._room + ".csv");
-                    return window.location.assign("." + "/" + SocialCalc._room + ".csv");
-                  }
+                    text: 'CSV',
+                    click: function(){
+                        return window.location.assign("." + "/" + SocialCalc._room + ".csv");
+                    }
+                }),
+                $.extend({}, typeof vex != 'undefined' && vex !== null ? vex.dialog.buttons.NO : void 8, {
+                    text: 'Cancel'
                 })
               ]
             }) : void 8;

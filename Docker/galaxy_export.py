@@ -26,15 +26,22 @@ def get_audit_trail(audit_file):
 if __name__ == "__main__":
     # get info on import dataset for naming
     hid = os.environ['DATASET_HID']
-    audit_file = 'ethercalc audit trail for dataset '+hid
-    export_file = 'ethercalc export on dataset '+hid
+    ftype = os.environ['EXPORT_FORMAT'].upper()
+    audit_file = 'Ethercalc on dataset ' + hid + ': audit trail'
+    export_file = 'Ethercalc on dataset ' + hid + ': ' + ftype + ' export'
 
     # send worksheet to galaxy history
-    csv_to_tsv('ethercalc_saved', export_file)
+    # convert to tsv if requested by user
+    if ftype == 'TSV':
+        csv_to_tsv('ethercalc_saved', export_file)
+        ftype = 'tabular'
+    else:
+        os.rename('ethercalc_saved', export_file)
+        ftype = 'csv'
 
     # get audit trail of worksheet, output one command per line
     get_audit_trail(audit_file)
 
     # send outputs to Galaxy
     put(audit_file, file_type='txt')
-    put(export_file, file_type='tabular')
+    put(export_file, file_type=ftype)

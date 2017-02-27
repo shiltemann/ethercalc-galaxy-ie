@@ -2,7 +2,7 @@
 (function(){
   var join$ = [].join;
   this.include = function(){
-    var J, csvParse, DB, SC, KEY, BASEPATH, EXPIRE, HMAC_CACHE, hmac, ref$, Text, Html, Csv, Json, fs, RealBin, DevMode, dataDir, sendFile, newRoom, IO, api, ExportCSVJSON, ExportCSV, ExportHTML, JTypeMap, ExportJ, ExportExcelXML, requestToCommand, requestToSave, i$, len$, route, ref1$, this$ = this;
+    var J, csvParse, DB, SC, KEY, BASEPATH, EXPIRE, HMAC_CACHE, hmac, ref$, Text, Html, Csv, Json, fs, RealBin, DevMode, dataDir, sendFile, newRoom, IO, api, ExportCSVJSON, ExportCSV, ExportTSV, ExportHTML, JTypeMap, ExportJ, ExportExcelXML, requestToCommand, requestToSave, i$, len$, route, ref1$, this$ = this;
     this.use('json', this.app.router, this.express['static'](__dirname));
     this.app.use('/edit', this.express['static'](__dirname));
     this.app.use('/view', this.express['static'](__dirname));
@@ -245,6 +245,15 @@
     ExportCSV = api(function(){
       return [
         Csv, function(sc, cb){
+          process.env['EXPORT_FORMAT'] = 'csv';
+          return sc.exportCSV(cb);
+        }
+      ];
+    });
+    ExportTSV = api(function(){
+      return [
+        Csv, function(sc, cb){
+          process.env['EXPORT_FORMAT'] = 'tsv';
           return sc.exportCSV(cb);
         }
       ];
@@ -337,6 +346,9 @@
     ExportExcelXML = api(function(){});
     this.get({
       '/:room.csv': ExportCSV
+    });
+    this.get({
+      '/:room.tsv': ExportTSV
     });
     this.get({
       '/:room.csv.json': ExportCSVJSON
