@@ -1,14 +1,11 @@
-# [WIP] ethercalc-galaxy-ie
+# Eethercalc Galaxy Interactive Environment
 
 Galaxy Interactive Environment for [Ethercalc](https://ethercalc.net/) spreadsheets
 
-- ethercalc githuh repo: https://github.com/audreyt/ethercalc
+- DockerHub repo: https://hub.docker.com/r/shiltemann/ethercalc-galaxy-ie/
 
-TODO's
-- [x] Import dataset from history
-    - [ ] replace with bioblend call instead of mount?
-- [x] TSV export
-- [x] hide built-in CSV/HTML/EXCEL export
-- [ ] progress bar/grey out on dataset upload (for big files)
-- [x] export audit log to history
-- [ ] apply audit log to new datasets somehow? --> galaxy tool
+- Ethercalc Github repo: https://github.com/audreyt/ethercalc
+
+This IE is allows you to edit tabular files in Galaxy with Ethercalc.
+Files can be saved to history in tab-separted or comma-separated format, and
+an audit trail is also kept to keep a record of the changes made.
