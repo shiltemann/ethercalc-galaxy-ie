@@ -28,7 +28,6 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node && \
 RUN pip install bioblend galaxy-ie-helpers
 
 # make some changes to ethercalc to import and export data to galaxy history
-# TODO: replace with patch
 ADD ./start.html /usr/local/lib/node_modules/ethercalc/start.html
 ADD ./main.js /usr/local/lib/node_modules/ethercalc/main.js
 ADD ./player.js /usr/local/lib/node_modules/ethercalc/player.js
