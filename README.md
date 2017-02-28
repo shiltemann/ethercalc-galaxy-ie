@@ -1,4 +1,4 @@
-# Eethercalc Galaxy Interactive Environment
+# Ethercalc Galaxy Interactive Environment
 
 Galaxy Interactive Environment for [Ethercalc](https://ethercalc.net/) spreadsheets
 
