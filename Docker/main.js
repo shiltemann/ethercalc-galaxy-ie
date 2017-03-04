@@ -212,8 +212,8 @@
                   var cmd = 'python /galaxy_export.py';
                   exec(cmd);
 
-                  // redirect browser back to worksheet
-                  this$.response.redirect(BASEPATH + "/" + room);
+                  // suppress download dialog
+                  return;
                   //return this$.response.send(200, rv);
                   //GIE changes
                 });
