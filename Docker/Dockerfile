@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:16.10
 
 MAINTAINER Saskia Hiltemann <zazkia@gmail.com>
 
@@ -21,9 +21,14 @@ RUN apt-get update && \
     apt-get install -y python-software-properties git python g++ make libssl-dev pkg-config build-essential redis-server && \
     apt-get install -y curl nodejs npm nginx net-tools procps python-pip
 
-# install ethercalc
 RUN ln -s /usr/bin/nodejs /usr/bin/node && \
-    npm install -g ethercalc forever child_process
+    npm install -g forever child_process
+
+# install ethercalc
+RUN mkdir /ethercalc-install && cd /ethercalc-install && \
+    git clone https://github.com/audreyt/ethercalc.git && \
+    cd ethercalc && sed -i 's/"nodemailer": "\*"/"nodemailer": "2.7.2"/' package.json && \
+    npm install -g
 
 RUN pip install bioblend galaxy-ie-helpers
 
