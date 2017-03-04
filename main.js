@@ -190,9 +190,9 @@
             if (snapshot) {
               ref$ = cb.call(this$.params, snapshot), type = ref$[0], content = ref$[1];
 
-              if (type === Csv) {
-                this$.response.set('Content-Disposition', "attachment; filename=\"" + this$.params.room + ".csv\"");
-              }
+              //if (type === Csv) {
+                //this$.response.set('Content-Disposition', "attachment; filename=\"" + this$.params.room + ".csv\"");
+              //}
               if (content instanceof Function) {
                 return content(SC[room], function(rv){
                   this$.response.type(type);
@@ -213,7 +213,7 @@
                   exec(cmd);
 
                   // suppress download dialog
-                  return;
+                  return this$.response.send(204);
                   //return this$.response.send(200, rv);
                   //GIE changes
                 });
