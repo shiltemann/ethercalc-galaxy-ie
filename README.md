@@ -3,6 +3,7 @@
 Galaxy Interactive Environment for [Ethercalc](https://ethercalc.net/) spreadsheets
 
 - DockerHub repo: https://hub.docker.com/r/shiltemann/ethercalc-galaxy-ie/
+- Quay.io repo: https://quay.io/repository/shiltemann/ethercalc-galaxy-ie
 
 - Ethercalc Github repo: https://github.com/audreyt/ethercalc
 
